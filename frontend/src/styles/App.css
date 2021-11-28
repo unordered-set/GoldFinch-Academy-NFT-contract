@@ -14,7 +14,6 @@
 }
 
 .logo {
-  float: left;
   padding: 10px;
 }
 
@@ -137,4 +136,24 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.message-list {
+  position: absolute;
+  display: flexbox;
+  right: 1%;
+  top: 70px;
+}
+
+.connect-button {
+  min-width: 120px;
+}
+
+.justify-content-between {
+  position: absolute;
+  right: 0;
+}
+
+.btn {
+  vertical-align: unset !important;
 }
