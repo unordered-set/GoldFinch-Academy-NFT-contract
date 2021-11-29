@@ -220,7 +220,7 @@ const App = () => {
 
   const handleClickMint = async () => {
     setMining(true);
-    await nftService.askContractToMintNft();
+    await nftService.askContractToMintNft(currentAccount);
     setMining(false);
   }
 
@@ -239,7 +239,6 @@ const App = () => {
     if (accounts.length !== 0) {
       const account = accounts[0];
       setCurrentAccount(account);
-
       nftService.setupEventListener(listenerCallback);
     } else {
       console.log("No authorized account found");
