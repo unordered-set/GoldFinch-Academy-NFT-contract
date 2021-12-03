@@ -18,21 +18,16 @@
 }
 
 .mid-container {
-  display: flex;
-  align-items: center;
   flex-direction: column;
 }
 
 .header-container {
-  display: flex;
-  padding-top: 30px;
   align-items: center;
-  flex-direction: column;
-  transform: translate(0, 100%);
+  transform: translate(0, 90%);
 }
 
 .header {
-  margin: 0;
+  margin: 0 50px ;
   font-size: 50px;
   font-weight: bold;
 }
@@ -89,7 +84,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 30px;
 }
 
 .twitter-logo {
@@ -98,8 +92,12 @@
 }
 
 .footer-text {
-  display: block;
-  padding: 10px;
+  color: #483e5e;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.link-text {
   color: #483e5e;
   font-size: 16px;
   font-weight: bold;
@@ -159,3 +157,4 @@
 .btn {
   vertical-align: unset !important;
 }
+

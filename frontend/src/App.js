@@ -90,23 +90,6 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-
-
-    window.onbeforeunload = function() { return "Prevent reload" }
-    window.ethereum.on('accountsChanged', handleAccountsChanged);
-
-    window.ethereum.on('chainChanged', (_chainId) => {
-      console.log(_chainId);
-      setCurrentChainID(() => parseInt(_chainId, 16))
-      //window.location.reload()
-    });
-
-
-  }, []);
-
-
-
   const SignOut = async () => {
     setIsLogged(false)
     setCurrentAccount('')
@@ -288,6 +271,7 @@ const App = () => {
           <div style={{height: 100}} />
           {mining && <img src={miningGif} width={100} height={100}/>}
         </div>
+
         {(imageUrl.length > 0) && (
           <div>
             <a
@@ -296,7 +280,9 @@ const App = () => {
               target="_blank"
               rel="noreferrer"
             >View on OpenSea</a>
+            <div>
             <img src={imageUrl} height={300} width={300}/>
+            </div>
           </div>
         )}
 
