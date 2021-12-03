@@ -14,7 +14,7 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
   const [mining, setMining] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState('http');
   const [openSeaUrl, setOpenSeaUrl] = useState();
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLogged, setIsLogged] = useState(false)
@@ -281,14 +281,15 @@ const App = () => {
               <option value="3">XXXX</option>
             </select>&#39;s NFT
           </p>
-            <button onClick={handleClickMint} style={{visibility: isLogged ? "visible" : "hidden"}} className="cta-button connect-wallet-button">
+          <p style={{color: "red"}}>*Use ONLY Polygon Network</p>
+          <button onClick={handleClickMint} style={{visibility: isLogged ? "visible" : "hidden"}} className="cta-button connect-wallet-button">
               Mint NFT
             </button>
           <div style={{height: 100}} />
           {mining && <img src={miningGif} width={100} height={100}/>}
         </div>
         {(imageUrl.length > 0) && (
-          <>
+          <div>
             <a
               className="footer-text"
               href={openSeaUrl}
@@ -296,7 +297,7 @@ const App = () => {
               rel="noreferrer"
             >View on OpenSea</a>
             <img src={imageUrl} height={300} width={300}/>
-          </>
+          </div>
         )}
 
         <div className="footer-container">
