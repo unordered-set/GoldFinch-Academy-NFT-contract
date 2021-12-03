@@ -43,7 +43,13 @@ describe('ERC721MerkleDrop', function () {
           .to.emit(this.registry, 'Transfer')
           .withArgs(ethers.constants.AddressZero, account, tokenId);
 
-        expect(await this.registry.tokenURI(tokenId)).to.equal(`https://gateway.pinata.cloud/ipfs/QmTWVxbMgVQfsFvAnJJoEYx52rpDLo3jRN8ALWjV1sbiYJ#${tokenId}`);
+        if (tokenId.toString()[0] === "1") {
+          expect(await this.registry.tokenURI(tokenId)).to.equal(`https://gateway.pinata.cloud/ipfs/QmNbsD9hip4pjrmC1aC7fnqi9LLPcnsZFNUcCNCkcVgnDh`);
+        } else if (tokenId.toString()[0] === "2") {
+          expect(await this.registry.tokenURI(tokenId)).to.equal(`https://gateway.pinata.cloud/ipfs/QmPBWTHtiT9kiYsFwdJ6XDajLjEHDsPUJrqJaQ1ADTCtPd`);
+        } else if (tokenId.toString()[0] === "3") {
+          expect(await this.registry.tokenURI(tokenId)).to.equal(`https://gateway.pinata.cloud/ipfs/QmZBhQTEq6dwS4kMBKneMQ3C6gR8PZtXx3aZEg3uyruCsr`);
+        }
       });
     }
   });

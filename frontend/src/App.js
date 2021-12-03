@@ -127,6 +127,7 @@ const App = () => {
   const [messages, setMessage] = useState([
 
   ])
+  const [nftType, setNftType] = useState("1");
 
   const Message = (props) => {
 
@@ -220,7 +221,7 @@ const App = () => {
 
   const handleClickMint = async () => {
     setMining(true);
-    await nftService.askContractToMintNft(currentAccount);
+    await nftService.askContractToMintNft(nftType, currentAccount);
     setMining(false);
   }
 
@@ -257,6 +258,11 @@ const App = () => {
     checkIfWalletIsConnected();
   }, [])
 
+  const nftTypes = [
+    {label: 'Participant', value: "1"},
+    {label: 'Top50 Participant', value: "2"},
+    {label: 'Top Community Manager', value: "3"},
+  ];
 
   return (
     <div className="App">
@@ -281,7 +287,11 @@ const App = () => {
         <div className="header-container">
           <p className="header gradient-text">Goldfinch Flight Academy</p>
           <p className="sub-text">
-            Earn your NFT
+            Earn your <select onChange={e=>setNftType(e.target.value)} options={nftTypes}>
+              <option value="1">Participant</option>
+              <option value="2">Top50 Participant</option>
+              <option value="3">Community Manager</option>
+            </select>&#39;s NFT
           </p>
             <button onClick={handleClickMint} style={{visibility: isLogged ? "visible" : "hidden"}} className="cta-button connect-wallet-button">
               Mint NFT

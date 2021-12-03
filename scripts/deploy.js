@@ -11,8 +11,8 @@ async function main() {
   const MyNFT = await ethers.getContractFactory("GoldFinchAcademyParticipantNFT");
 
   // Start deployment, returning a promise that resolves to a contract object
-  const myNFT = await MyNFT.deploy('GoldFinch Academy Participant', 'GFAP', merkleTree.getHexRoot());
-  console.log("Contract deployed to address:", myNFT.address);
+  const myNFT = await MyNFT.deploy('Goldfinch Flight Academy — 1', 'GFA-1', merkleTree.getHexRoot());
+  console.log("Contract deployed to address:", myNFT.address, " root:", merkleTree.getHexRoot());
 }
 
 main()
