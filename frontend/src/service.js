@@ -5,7 +5,7 @@ const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const tokens = require('./assets/tokens.json');
 
-const CONTRACT_ADDRESS = "0xaF8291a7e1B481967E34d5C7AdFbd24c7dfA7A69";
+const CONTRACT_ADDRESS = "0xA935D401A9c88a963A8Ffb66c4933d209582eE0b";
 const EXPLORER_LINK = "https://mumbai.polygonscan.com/tx/";
 
 function hashToken(tokenId, account) {
@@ -14,10 +14,11 @@ function hashToken(tokenId, account) {
 }
 
 const nftService = {
-  askContractToMintNft: async (account) => {
-    const mayBeEntry = Object.entries(tokens).filter(z => (z[1].toUpperCase() == account.toUpperCase()));
+  askContractToMintNft: async (nftType, account) => {
+    const mayBeEntry = Object.entries(tokens).filter(z => (z[0][0] === nftType && z[1].toUpperCase() === account.toUpperCase()));
     if (mayBeEntry.length !== 1) {
       console.error("Account", account, "is not whitelisted");
+      alert(`Account ${account} is not whitelisted for this type of NFT!`);
       return;
     }
     const tokenId = mayBeEntry[0][0];
@@ -33,7 +34,7 @@ const nftService = {
         const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, GoldFinchContractABI.abi, signer);
 
         console.log("Going to pop wallet now to pay gas for _minting(tokenId=", tokenId, ", proof=", proof);
-        let nftTxn = await connectedContract.redeem(account, 1, proof)
+        let nftTxn = await connectedContract.redeem(account, tokenId , proof)
 
         console.log("Mining...please wait.")
         await nftTxn.wait();
