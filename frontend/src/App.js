@@ -14,7 +14,7 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
   const [mining, setMining] = useState(false);
-  const [imageUrl, setImageUrl] = useState('http');
+  const [imageUrl, setImageUrl] = useState('');
   const [openSeaUrl, setOpenSeaUrl] = useState();
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLogged, setIsLogged] = useState(false)
@@ -261,7 +261,6 @@ const App = () => {
             Earn your <select onChange={e=>setNftType(e.target.value)} options={nftTypes}>
               <option value="1">Participant</option>
               <option value="2">Community Manager</option>
-              <option value="3">XXXX</option>
             </select>&#39;s NFT
           </p>
           <p style={{color: "red"}}>*Use ONLY Polygon Network</p>
