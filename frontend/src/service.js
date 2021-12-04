@@ -5,11 +5,10 @@ const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const tokens = require('./assets/tokens.json');
 
-const CONTRACT_ADDRESS = "0xA935D401A9c88a963A8Ffb66c4933d209582eE0b";
-const EXPLORER_LINK = "https://mumbai.polygonscan.com/tx/";
+const CONTRACT_ADDRESS = "0x388e7ce8ed2129d4b93b2f560e6aa7d49efb0257";
+const EXPLORER_LINK = "https://polygonscan.com/tx/";
 
 function hashToken(tokenId, account) {
-  console.log("Hashing token", tokenId, account);
   return Buffer.from(ethers.utils.solidityKeccak256(['uint256', 'address'], [tokenId, account]).slice(2), 'hex')
 }
 
@@ -85,11 +84,19 @@ const nftService = {
         // This will essentially "capture" our event when our contract throws it.
         // If you're familiar with webhooks, it's very similar to that!
         connectedContract.on("Transfer", async (from, to, tokenId) => {
-          console.log(from, tokenId.toNumber())
-          const num = await nftService.getNumMinted(to)
-          console.log("NUM: ", num)
-          const url = `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`;
-          callback(num, tokenId, url);
+          console.log("OnTrasfer", from, to, tokenId);
+          const metadataUrl = await connectedContract.tokenURI(tokenId);
+          const metadataResponse = await fetch(metadataUrl);
+          const metadataBody = await metadataResponse.json();
+          const imageUrl = metadataBody.image;
+
+          const compressedImages = {
+            "https://gateway.pinata.cloud/ipfs/QmWwhvHG7SugVJswobBbmfSPmMrbFNYmU8ZMc8s4mUDrCZ": "/GoldfinchCommunityManager_small.png",
+            "https://gateway.pinata.cloud/ipfs/QmZqLLV8rT49Vnxt2U2rpnjyC9jjHgesYMaQghQbBm5tKQ": "/GoldfinchParticipant_small.png",
+          };
+          // At this point we don't know who minted the token, so we are going to call
+          // callback may be more often than needed, but it should protect itself.
+          callback(to, compressedImages[imageUrl] || imageUrl, CONTRACT_ADDRESS, tokenId);
         });
 
         console.log("Setup event listener!")
