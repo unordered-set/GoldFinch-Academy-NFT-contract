@@ -92,10 +92,6 @@ const App = () => {
 
   useEffect(() => {
 
-
-    window.onbeforeunload = function() { return "Prevent reload" }
-    window.ethereum.on('accountsChanged', handleAccountsChanged);
-
   }, []);
 
   const SignOut = async () => {
