@@ -1,4 +1,3 @@
-import { fetchJson } from "@ethersproject/web";
 import { ethers } from "ethers";
 const GoldFinchContractABI = require('./assets/GoldFinchAcademyParticipantNFT.json');
 
@@ -6,8 +5,8 @@ const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const tokens = require('./assets/tokens.json');
 
-const CONTRACT_ADDRESS = "0x0F69A91e79936549baE6C9BFBEfCAA184e81d4bE";
-const EXPLORER_LINK = "https://mumbai.polygonscan.com/tx/";
+const CONTRACT_ADDRESS = "0x388e7ce8ed2129d4b93b2f560e6aa7d49efb0257";
+const EXPLORER_LINK = "https://polygonscan.com/tx/";
 
 function hashToken(tokenId, account) {
   return Buffer.from(ethers.utils.solidityKeccak256(['uint256', 'address'], [tokenId, account]).slice(2), 'hex')
@@ -90,9 +89,14 @@ const nftService = {
           const metadataResponse = await fetch(metadataUrl);
           const metadataBody = await metadataResponse.json();
           const imageUrl = metadataBody.image;
+
+          const compressedImages = {
+            "https://gateway.pinata.cloud/ipfs/QmWwhvHG7SugVJswobBbmfSPmMrbFNYmU8ZMc8s4mUDrCZ": "/GoldfinchCommunityManager_small.png",
+            "https://gateway.pinata.cloud/ipfs/QmZqLLV8rT49Vnxt2U2rpnjyC9jjHgesYMaQghQbBm5tKQ": "/GoldfinchParticipant_small.png",
+          };
           // At this point we don't know who minted the token, so we are going to call
           // callback may be more often than needed, but it should protect itself.
-          callback(to, imageUrl, CONTRACT_ADDRESS, tokenId);
+          callback(to, compressedImages[imageUrl] || imageUrl, CONTRACT_ADDRESS, tokenId);
         });
 
         console.log("Setup event listener!")
