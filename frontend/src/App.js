@@ -14,7 +14,7 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
   const [mining, setMining] = useState(false);
-  const [imageUrl, setImageUrl] = useState('http');
+  const [imageUrl, setImageUrl] = useState('');
   const [openSeaUrl, setOpenSeaUrl] = useState();
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLogged, setIsLogged] = useState(false)
@@ -89,6 +89,14 @@ const App = () => {
       setMessage(messages => [...messages, {head : "Account Changed", body: `addres: ${accounts[0]}`, variant: 'warning'}])
     }
   }
+
+  useEffect(() => {
+
+
+    window.onbeforeunload = function() { return "Prevent reload" }
+    window.ethereum.on('accountsChanged', handleAccountsChanged);
+
+  }, []);
 
   const SignOut = async () => {
     setIsLogged(false)
