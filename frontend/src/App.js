@@ -7,7 +7,7 @@ import logo from "./assets/logo.svg"
 import Web3 from "web3";
 import ChainLogo from './assets/ChainLogos'
 import detectEthereumProvider from '@metamask/detect-provider';
-import { Navbar,Container,Row,Col,Button,Alert,OverlayTrigger,Tooltip  } from 'react-bootstrap'
+import {Navbar, Container, Row, Col, Button, Alert, OverlayTrigger, Tooltip, FormSelect} from 'react-bootstrap'
 
 const TWITTER_HANDLE = 'goldfinch_fi';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -38,6 +38,8 @@ const App = () => {
     }
 
   }
+
+
 
   const ConnectWallet = async () => {
 
@@ -262,10 +264,10 @@ const App = () => {
         <div className="header-container">
           <p className="header gradient-text">Goldfinch Flight Academy</p>
           <p className="sub-text">
-            Earn your <select onChange={e=>setNftType(e.target.value)} options={nftTypes}>
+            Earn your <FormSelect style={{width: "auto", display: 'inline-flex'}} onChange={e=>setNftType(e.target.value)} options={nftTypes}>
               <option value="1">GF Flight Academy Participant</option>
               <option value="2">GF Contributor</option>
-            </select>&#39;s NFT
+            </FormSelect>&#39;s NFT
           </p>
           <p style={{color: "red"}}>*Use ONLY Polygon Network</p>
           <button onClick={handleClickMint} style={{visibility: isLogged ? "visible" : "hidden"}} className="cta-button connect-wallet-button">

@@ -23,7 +23,8 @@
 
 .header-container {
   align-items: center;
-  transform: translate(0, 90%);
+  transform: translate(0, 150%);
+  animation: animated-text 2s steps(30,end) 1s 1 normal both;
 }
 
 .header {
@@ -140,7 +141,6 @@
 
 .message-list {
   position: absolute;
-  display: flexbox;
   right: 1%;
   top: 70px;
 }
@@ -158,3 +158,22 @@
   vertical-align: unset !important;
 }
 
+.ml6 {
+  position: relative;
+  font-weight: 900;
+  font-size: 3.3em;
+}
+
+.ml6 .text-wrapper {
+  position: relative;
+  display: inline-block;
+  padding-top: 0.2em;
+  padding-right: 0.05em;
+  padding-bottom: 0.1em;
+  overflow: hidden;
+}
+
+.ml6 .letter {
+  display: inline-block;
+  line-height: 1em;
+}
