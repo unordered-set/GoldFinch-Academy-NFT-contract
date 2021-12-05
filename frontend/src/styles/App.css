@@ -23,7 +23,7 @@
 
 .header-container {
   align-items: center;
-  transform: translate(0, 150%);
+  transform: translate(0, 110%);
   animation: animated-text 2s steps(30,end) 1s 1 normal both;
 }
 
@@ -150,7 +150,6 @@
 }
 
 .justify-content-between {
-  position: absolute;
   right: 0;
 }
 
