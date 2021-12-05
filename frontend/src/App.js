@@ -263,8 +263,8 @@ const App = () => {
           <p className="header gradient-text">Goldfinch Flight Academy</p>
           <p className="sub-text">
             Earn your <select onChange={e=>setNftType(e.target.value)} options={nftTypes}>
-              <option value="1">Participant</option>
-              <option value="2">Community Manager</option>
+              <option value="1">GF Flight Academy Participant</option>
+              <option value="2">GF Contributor</option>
             </select>&#39;s NFT
           </p>
           <p style={{color: "red"}}>*Use ONLY Polygon Network</p>
