@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 import nftService from "./service";
@@ -7,7 +7,64 @@ import logo from "./assets/logo.svg"
 import Web3 from "web3";
 import ChainLogo from './assets/ChainLogos'
 import detectEthereumProvider from '@metamask/detect-provider';
-import {Navbar, Container, Row, Col, Button, Alert, OverlayTrigger, Tooltip, FormSelect} from 'react-bootstrap'
+import {Alert, Button, FormSelect, Navbar, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import ErrorMessage from "./ErrorMessage";
+
+
+const networks = {
+  polygon: {
+    chainId: `0x${Number(137).toString(16)}`,
+    chainName: "Polygon Mainnet",
+    nativeCurrency: {
+      name: "MATIC",
+      symbol: "MATIC",
+      decimals: 18
+    },
+    rpcUrls: ["https://polygon-rpc.com/"],
+    blockExplorerUrls: ["https://polygonscan.com/"]
+  },
+  bsc: {
+    chainId: `0x${Number(56).toString(16)}`,
+    chainName: "Binance Smart Chain Mainnet",
+    nativeCurrency: {
+      name: "Binance Chain Native Token",
+      symbol: "BNB",
+      decimals: 18
+    },
+    rpcUrls: [
+      "https://bsc-dataseed1.binance.org",
+      "https://bsc-dataseed2.binance.org",
+      "https://bsc-dataseed3.binance.org",
+      "https://bsc-dataseed4.binance.org",
+      "https://bsc-dataseed1.defibit.io",
+      "https://bsc-dataseed2.defibit.io",
+      "https://bsc-dataseed3.defibit.io",
+      "https://bsc-dataseed4.defibit.io",
+      "https://bsc-dataseed1.ninicoin.io",
+      "https://bsc-dataseed2.ninicoin.io",
+      "https://bsc-dataseed3.ninicoin.io",
+      "https://bsc-dataseed4.ninicoin.io",
+      "wss://bsc-ws-node.nariox.org"
+    ],
+    blockExplorerUrls: ["https://bscscan.com"]
+  }
+};
+
+const changeNetwork = async ({ networkName, setError }) => {
+  try {
+    if (!window.ethereum) throw new Error("No crypto wallet found");
+    await window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [
+        {
+          ...networks[networkName]
+        }
+      ]
+    });
+  } catch (err) {
+    setError(err.message);
+  }
+};
 
 const TWITTER_HANDLE = 'goldfinch_fi';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -19,6 +76,24 @@ const App = () => {
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLogged, setIsLogged] = useState(false)
   const [currentChainID, setCurrentChainID] = useState(-1)
+  const [error, setError] = useState();
+
+  const handleNetworkSwitch = async (networkName) => {
+    setError();
+    await changeNetwork({ networkName, setError });
+  };
+
+  const networkChanged = (chainId) => {
+    console.log({ chainId });
+  };
+
+  useEffect(() => {
+    window.ethereum.on("chainChanged", networkChanged);
+
+    return () => {
+      window.ethereum.removeListener("chainChanged", networkChanged);
+    };
+  }, []);
 
   const SignIn = async () => {
     //Detect Provider
@@ -78,8 +153,6 @@ const App = () => {
   const handleAccountsChanged = (accounts) => {
 
     console.log('handleAccountsChanged');
-
-    //if(!isLogged) return
 
     if (accounts.length === 0) {
       // MetaMask is locked or the user has not connected any accounts
@@ -246,7 +319,14 @@ const App = () => {
       <Navbar className="justify-content-between" variant="dark">
         <img src={logo} width={50} height={50} className="logo"  />
         <div>
-          <Chain chainId={currentChainID} />{' '}
+          <button
+              onClick={() => handleNetworkSwitch("polygon")}
+              className="cta-button connect-wallet-button"
+              style={{visibility: isLogged ? "visible" : "hidden", height: "38px", marginRight: "20px"}}
+          >
+            Switch to Polygon
+          </button>
+          <ErrorMessage message={error} />
           <button className="cta-button connect-wallet-button" style={{height: "38px"}} disabled={isLogged} onClick={SignIn} variant="primary">{isLogged ? shortAddr() : "Connect"}</button>{' '}
           <Button onClick={SignOut} style={{visibility: isLogged ? "visible" : "hidden"}} variant="danger">X</Button>
         </div>
