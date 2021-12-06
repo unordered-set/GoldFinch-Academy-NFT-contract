@@ -331,6 +331,7 @@ const App = () => {
           <div style={{height: 100}} />
           {mining && <img src={miningGif} width={100} height={100}/>}
         </div>
+        <p className="sub-text">You have minted NFT successfully</p>
 
         {(imageUrl.length > 0) && (
           <div>
