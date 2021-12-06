@@ -5,7 +5,7 @@ const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const tokens = require('./assets/tokens.json');
 
-const CONTRACT_ADDRESS = "0x388e7ce8ed2129d4b93b2f560e6aa7d49efb0257";
+const CONTRACT_ADDRESS = "0xaF8291a7e1B481967E34d5C7AdFbd24c7dfA7A69";
 const EXPLORER_LINK = "https://polygonscan.com/tx/";
 
 function hashToken(tokenId, account) {
