@@ -31,6 +31,17 @@ const nftService = {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, GoldFinchContractABI.abi, signer);
+        let alreadyMinted = false;
+        try {
+            const owner = await connectedContract.ownerOf(tokenId);
+            alreadyMinted = true;
+        } catch (error) {
+            alreadyMinted = false;
+	}
+        if (alreadyMinted) {
+            alert(`NFT ${tokenId} is already minted. May be you forgot to pick another type of contribution in the drop down?`);
+            return;
+	}
 
         console.log("Going to pop wallet now to pay gas for _minting(tokenId=", tokenId, ", proof=", proof);
         let nftTxn = await connectedContract.redeem(account, tokenId , proof)
@@ -44,6 +55,7 @@ const nftService = {
         console.log("Ethereum object doesn't exist!");
       }
     } catch (error) {
+      alert("Issue connecting to your ethereum wallet, please try with MetaMask");
       console.log(error)
     }
   },
