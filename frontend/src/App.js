@@ -89,8 +89,6 @@ const App = () => {
 
   }
 
-
-
   const ConnectWallet = async () => {
 
     console.log("Try Connect");
@@ -140,10 +138,6 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-
-  }, []);
-
   const SignOut = async () => {
     setIsLogged(false)
     setCurrentAccount('')
@@ -152,8 +146,6 @@ const App = () => {
   const shortAddr = () => {
     return `${currentAccount.substr(0,4)}...${currentAccount.substring(currentAccount.length - 4, currentAccount.length)}`
   }
-
-
 
   const [messages, setMessage] = useState([
 
@@ -184,65 +176,6 @@ const App = () => {
 
 
   }
-
-  const Chain = (props) => {
-
-    const chainId = props.chainId
-
-    let chainLogo
-    let variant
-    let chainName
-
-    switch (chainId) {
-      case 1: //ETH
-        chainLogo = ChainLogo.eth
-        variant = "light"
-        chainName = "Ethereum Network"
-        break;
-      case 56: //BNB
-        chainLogo = ChainLogo.bnb
-        variant = "secondary"
-        chainName = "Binance Smart Chain"
-        break;
-      case 128: //HT
-        chainLogo = ChainLogo.ht
-        variant = "light"
-        chainName = "Heco"
-        break;
-      case 100: //xDai
-        chainLogo = ChainLogo.xdai
-        variant = "light"
-        chainName = "xDai Stable Chain"
-        break;
-      case 137: //Polygon
-        chainLogo = ChainLogo.polygon
-        variant = "light"
-        chainName = "Polygon Network"
-        break;
-      default: // Unknown network
-        chainLogo = ChainLogo.unknown
-        variant = "light"
-        chainName = "Unknown network?"
-        break;
-    }
-
-    return(
-        <OverlayTrigger
-            key="left"
-            placement="left"
-            overlay={
-              <Tooltip id={`tooltip-left`}>
-                {chainName}
-              </Tooltip>
-            }
-        >
-          <Button variant={variant} >
-            <img src={chainLogo} width={14} alt={chainName} />
-          </Button>
-        </OverlayTrigger>
-    )
-  }
-
 
   const listenerCallback = account => (receiver, imageUrl, contractAddress, tokenId) => {
     console.log("ListenerCallBack account=", account, receiver, imageUrl, contractAddress, tokenId);
@@ -331,10 +264,9 @@ const App = () => {
           <div style={{height: 100}} />
           {mining && <img src={miningGif} width={100} height={100}/>}
         </div>
-        <p className="sub-text">You have minted NFT successfully</p>
 
         {(imageUrl.length > 0) && (
-          <div>
+          <div style={{backgroundColor: '#f8f6f4', width: '100%'}}>
             <p className="sub-text">You have minted NFT successfully</p>
             <a
               className="footer-text"
