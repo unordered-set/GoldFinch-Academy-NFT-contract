@@ -355,7 +355,7 @@ const App = () => {
             href={TWITTER_LINK}
             target="_blank"
             rel="noreferrer"
-          >{`built by @${TWITTER_HANDLE}`}</a>
+          >{`built by the @${TWITTER_HANDLE} community`}</a>
         </div>
       </div>
     </div>
