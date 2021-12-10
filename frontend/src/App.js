@@ -70,7 +70,7 @@ const App = () => {
     };
   }, []);
 
-  const SignIn = async () => {
+  const SignIn = async (networkName) => {
     //Detect Provider
     const provider = await detectEthereumProvider()
     const web3 = new Web3(provider)
@@ -82,6 +82,14 @@ const App = () => {
     } else {
 
       const address = await ConnectWallet()
+      await window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            ...networks[networkName]
+          }
+        ]
+      });
       if (address)
         setMessage(messages =>[...messages, {head : "User Login", body: `addres: ${address}`, variant: 'success'}])
 
@@ -121,21 +129,6 @@ const App = () => {
 
     }
 
-  }
-
-  const handleAccountsChanged = (accounts) => {
-
-    console.log('handleAccountsChanged');
-
-    if (accounts.length === 0) {
-      // MetaMask is locked or the user has not connected any accounts
-      setMessage(messages => [...messages, {head : "User Rejected Request", body: 'Please connect to MetaMask.', variant: 'info'}])
-    } else if (accounts[0] !== currentAccount) {
-      console.log(accounts[0])
-      console.log(messages);
-      setCurrentAccount(() => accounts[0])
-      setMessage(messages => [...messages, {head : "Account Changed", body: `addres: ${accounts[0]}`, variant: 'warning'}])
-    }
   }
 
   const SignOut = async () => {
@@ -227,15 +220,8 @@ const App = () => {
       <Navbar className="justify-content-between" variant="dark">
         <img src={logo} width={50} height={50} className="logo"  />
         <div>
-          <button
-              onClick={() => handleNetworkSwitch("polygon")}
-              className="cta-button connect-wallet-button"
-              style={{visibility: isLogged ? "visible" : "hidden", height: "38px", marginRight: "20px"}}
-          >
-            Switch to Polygon
-          </button>
           <ErrorMessage message={error} />
-          <button className="cta-button connect-wallet-button" style={{height: "38px"}} disabled={isLogged} onClick={SignIn} variant="primary">{isLogged ? shortAddr() : "Connect"}</button>{' '}
+          <button className="cta-button connect-wallet-button" style={{height: "38px"}} disabled={isLogged} onClick={() => SignIn("polygon")}>{isLogged ? shortAddr() : "Connect"}</button>{' '}
           <Button onClick={SignOut} style={{visibility: isLogged ? "visible" : "hidden"}} variant="danger">X</Button>
         </div>
       </Navbar>
