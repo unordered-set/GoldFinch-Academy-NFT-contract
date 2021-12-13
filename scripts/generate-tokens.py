@@ -13,7 +13,7 @@ for line in csv:
         is_first_line = False
         continue
 
-    participant, manager = line.split(',')
+    manager, participant = line.split(',')
     address = lambda s: s.strip()#.lower()
 
     participant = address(participant)
