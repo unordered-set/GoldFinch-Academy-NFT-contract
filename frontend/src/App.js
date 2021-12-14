@@ -91,7 +91,7 @@ const App = () => {
         ]
       });
       if (address)
-        setMessage(messages =>[...messages, {head : "User Login", body: `addres: ${address}`, variant: 'success'}])
+        setMessage(messages =>[...messages, {head : "User Login", body: `Address: ${address}`, variant: 'success'}])
 
     }
 
