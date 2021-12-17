@@ -13,7 +13,7 @@ function hashToken(tokenId, account) {
 }
 
 const nftService = {
-  askContractToMintNft: async (nftType, account) => {
+  askContractToMintNft: async (nftType, account, callback) => {
     const mayBeEntry = Object.entries(tokens).filter(z => (z[0][0] === nftType && z[1].toUpperCase() === account.toUpperCase()));
     if (mayBeEntry.length !== 1) {
       console.error("Account", account, "is not whitelisted");
@@ -39,7 +39,7 @@ const nftService = {
             alreadyMinted = false;
 	}
         if (alreadyMinted) {
-            alert(`NFT ${tokenId} is already minted. May be you forgot to pick another type of contribution in the drop down?`);
+            alert(`NFT ${tokenId} is already minted.`);
             return;
 	}
 
@@ -50,7 +50,18 @@ const nftService = {
         await nftTxn.wait();
         
         console.log(`Mined, see transaction: ${EXPLORER_LINK}${nftTxn.hash}`);
+        // const metadataUrl = await connectedContract.tokenURI(tokenId);
+        // const metadataResponse = await fetch(metadataUrl);
+        // const metadataBody = await metadataResponse.json();
+        // const imageUrl = metadataBody.image;
 
+        const compressedImages = {
+          "https://gateway.pinata.cloud/ipfs/QmWwhvHG7SugVJswobBbmfSPmMrbFNYmU8ZMc8s4mUDrCZ": "/GoldfinchParticipant_small.png",
+          "https://gateway.pinata.cloud/ipfs/QmZqLLV8rT49Vnxt2U2rpnjyC9jjHgesYMaQghQbBm5tKQ": "/GoldfinchCommunityManager_small.png"
+        };
+        // At this point we don't know who minted the token, so we are going to call
+        // callback may be more often than needed, but it should protect itself.
+        callback(account, "/GoldfinchParticipant_small.png", CONTRACT_ADDRESS, tokenId);
       } else {
         console.log("Ethereum object doesn't exist!");
       }

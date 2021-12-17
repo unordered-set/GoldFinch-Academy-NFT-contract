@@ -180,7 +180,7 @@ const App = () => {
 
   const handleClickMint = async () => {
     setMining(true);
-    await nftService.askContractToMintNft(nftType, currentAccount);
+    await nftService.askContractToMintNft(nftType, currentAccount, listenerCallback(currentAccount));
     setMining(false);
   }
 
