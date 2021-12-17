@@ -61,7 +61,7 @@ const nftService = {
         };
         // At this point we don't know who minted the token, so we are going to call
         // callback may be more often than needed, but it should protect itself.
-        callback(to, "/GoldfinchParticipant_small.png", CONTRACT_ADDRESS, tokenId);
+        callback(account, "/GoldfinchParticipant_small.png", CONTRACT_ADDRESS, tokenId);
       } else {
         console.log("Ethereum object doesn't exist!");
       }
