@@ -5,7 +5,7 @@ const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 const tokens = require('./assets/tokens.json');
 
-const CONTRACT_ADDRESS = "0x70EB07a559A82f573A4401ACA045c0312D1914C4";
+const CONTRACT_ADDRESS = "0x1074dAE82A6bA28f09a798C5d747a6B50524898b";
 const EXPLORER_LINK = "https://polygonscan.com/tx/";
 
 function hashToken(tokenId, account) {
@@ -103,8 +103,8 @@ const nftService = {
           const imageUrl = metadataBody.image;
 
           const compressedImages = {
-            "https://gateway.pinata.cloud/ipfs/QmWwhvHG7SugVJswobBbmfSPmMrbFNYmU8ZMc8s4mUDrCZ": "/GoldfinchCommunityManager_small.png",
-            "https://gateway.pinata.cloud/ipfs/QmZqLLV8rT49Vnxt2U2rpnjyC9jjHgesYMaQghQbBm5tKQ": "/GoldfinchParticipant_small.png",
+            "https://gateway.pinata.cloud/ipfs/QmWwhvHG7SugVJswobBbmfSPmMrbFNYmU8ZMc8s4mUDrCZ": "/GoldfinchParticipant_small.png",
+            "https://gateway.pinata.cloud/ipfs/QmZqLLV8rT49Vnxt2U2rpnjyC9jjHgesYMaQghQbBm5tKQ": "/GoldfinchCommunityManager_small.png"
           };
           // At this point we don't know who minted the token, so we are going to call
           // callback may be more often than needed, but it should protect itself.

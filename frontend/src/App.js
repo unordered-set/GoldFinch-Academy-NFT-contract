@@ -175,7 +175,7 @@ const App = () => {
     if (receiver.toUpperCase() !== account.toUpperCase())
       return;
     setImageUrl(imageUrl);
-    setOpenSeaUrl(`https://opensea.io/assets/${contractAddress}/${tokenId}`);
+    setOpenSeaUrl(`https://opensea.io/assets/matic/${contractAddress}/${tokenId}`);
   };
 
   const handleClickMint = async () => {
